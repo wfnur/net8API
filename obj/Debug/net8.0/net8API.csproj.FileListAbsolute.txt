@@ -135,3 +135,4 @@ E:\Learning\C#\net8API\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.res
 E:\Learning\C#\net8API\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\Learning\C#\net8API\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\Learning\C#\net8API\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\Learning\C#\net8API\obj\Debug\net8.0\net8API.sourcelink.json
