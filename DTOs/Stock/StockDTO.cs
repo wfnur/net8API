@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using net8API.DTOs.Comment;
 
 namespace net8API.DTOs.Stock
 {
@@ -13,6 +14,9 @@ namespace net8API.DTOs.Stock
         public decimal Purchase { get; set; }
         public decimal LastDiv {get;set;}
         public string Industry {get;set;}= string.Empty;
-        public long MarketCap {get;set;}        
+        public long MarketCap {get;set;}    
+
+        public List<CommentDTO> Comments { get; set; }
+       
     }
 }

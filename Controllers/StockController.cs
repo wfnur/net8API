@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using net8API.Data;
 using net8API.DTOs.Stock;
+using net8API.Interfaces;
 using net8API.Mapper;
 
 namespace net8API.Controllers
@@ -14,16 +15,16 @@ namespace net8API.Controllers
     [ApiController]
     public class StockController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        public StockController(ApplicationDbContext context)
+        private readonly IStockRepository _stockRepo;
+        public StockController(IStockRepository stockRepo)
         {
-            _context=context;
+            _stockRepo=stockRepo;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var stocks = await _context.Stocks.ToListAsync();
+            var stocks = await _stockRepo.GetAllAsync();
             var stockDto = stocks.Select(s => s.ToStockDTO());
 
             return Ok(stocks);
@@ -32,7 +33,7 @@ namespace net8API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var stock = await _context.Stocks.FindAsync(id);
+            var stock = await _stockRepo.GetStockByidAsync(id);
             if(stock == null)
             {
                 return NotFound();
@@ -45,8 +46,7 @@ namespace net8API.Controllers
         public async Task<IActionResult> Create([FromBody] CreateStockRequestDTO stockDTO)
         {
             var stockModel = stockDTO.ToStockFromCreateDTO();
-            await _context.Stocks.AddAsync(stockModel);
-            await _context.SaveChangesAsync();
+            await _stockRepo.CreateAsync(stockModel);
 
             return CreatedAtAction(
                 nameof(GetById),
@@ -62,21 +62,11 @@ namespace net8API.Controllers
             [FromBody] UpdateStockRequestDTO updateDTO
         )
         {
-            var stockModel = await _context.Stocks.FirstOrDefaultAsync(x=>x.Id ==id);
+            var stockModel = await _stockRepo.UpdateAsync(id,updateDTO);
             if(stockModel == null)
             {
                 return NotFound();
             }
-
-            stockModel.Symbol = updateDTO.Symbol;
-            stockModel.CompanyName = updateDTO.CompanyName;
-            stockModel.Purchase = updateDTO.Purchase;
-            stockModel.Industry = updateDTO.Industry;
-            stockModel.LastDiv = updateDTO.LastDiv;
-            stockModel.MarketCap = updateDTO.MarketCap;
-
-            await _context.SaveChangesAsync();
-
             return Ok(stockModel.ToStockDTO());
         }
 
@@ -84,14 +74,11 @@ namespace net8API.Controllers
         [Route("{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var stockModel = await _context.Stocks.FirstOrDefaultAsync(x=>x.Id ==id);
+            var stockModel = await _stockRepo.DeleteAsync(id);
             if(stockModel == null)
             {
                 return NotFound();
             }
-
-            _context.Stocks.Remove(stockModel);
-            await _context.SaveChangesAsync();
             return NoContent();
         }
     }
