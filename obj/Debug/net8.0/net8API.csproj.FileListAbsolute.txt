@@ -124,11 +124,6 @@ E:\Learning\C#\net8API\obj\Debug\net8.0\net8API.MvcApplicationPartsAssemblyInfo.
 E:\Learning\C#\net8API\obj\Debug\net8.0\net8API.sourcelink.json
 E:\Learning\C#\net8API\obj\Debug\net8.0\staticwebassets.build.json
 E:\Learning\C#\net8API\obj\Debug\net8.0\staticwebassets.development.json
-E:\Learning\C#\net8API\obj\Debug\net8.0\staticwebassets\msbuild.net8API.Microsoft.AspNetCore.StaticWebAssets.props
-E:\Learning\C#\net8API\obj\Debug\net8.0\staticwebassets\msbuild.build.net8API.props
-E:\Learning\C#\net8API\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.net8API.props
-E:\Learning\C#\net8API\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.net8API.props
-E:\Learning\C#\net8API\obj\Debug\net8.0\staticwebassets.pack.json
 E:\Learning\C#\net8API\obj\Debug\net8.0\scopedcss\bundle\net8API.styles.css
 E:\Learning\C#\net8API\obj\Debug\net8.0\net8API.csproj.Up2Date
 E:\Learning\C#\net8API\obj\Debug\net8.0\net8API.dll
@@ -140,3 +135,10 @@ E:\Learning\C#\net8API\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
 E:\Learning\C#\net8API\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 E:\Learning\C#\net8API\bin\Debug\net8.0\Newtonsoft.Json.dll
 E:\Learning\C#\net8API\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+E:\Learning\C#\net8API\obj\Debug\net8.0\rpswa.dswa.cache.json
+E:\Learning\C#\net8API\bin\Debug\net8.0\net8API.staticwebassets.endpoints.json
+E:\Learning\C#\net8API\obj\Debug\net8.0\rjimswa.dswa.cache.json
+E:\Learning\C#\net8API\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+E:\Learning\C#\net8API\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+E:\Learning\C#\net8API\obj\Debug\net8.0\staticwebassets.build.json.cache
+E:\Learning\C#\net8API\obj\Debug\net8.0\staticwebassets.build.endpoints.json

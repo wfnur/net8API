@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using net8API.Data;
 using net8API.DTOs.Stock;
+using net8API.Helpers;
 using net8API.Interfaces;
 using net8API.Mapper;
 
@@ -22,15 +23,15 @@ namespace net8API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] QueryObject queryObject)
         {
-            var stocks = await _stockRepo.GetAllAsync();
+            var stocks = await _stockRepo.GetAllAsync(queryObject);
             var stockDto = stocks.Select(s => s.ToStockDTO());
 
             return Ok(stocks);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var stock = await _stockRepo.GetStockByidAsync(id);
@@ -45,6 +46,9 @@ namespace net8API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateStockRequestDTO stockDTO)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var stockModel = stockDTO.ToStockFromCreateDTO();
             await _stockRepo.CreateAsync(stockModel);
 
@@ -56,12 +60,15 @@ namespace net8API.Controllers
         }
 
         [HttpPut]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Update(
             [FromRoute] int id, 
             [FromBody] UpdateStockRequestDTO updateDTO
         )
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+                
             var stockModel = await _stockRepo.UpdateAsync(id,updateDTO);
             if(stockModel == null)
             {
@@ -71,7 +78,7 @@ namespace net8API.Controllers
         }
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var stockModel = await _stockRepo.DeleteAsync(id);

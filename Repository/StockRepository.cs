@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using net8API.Data;
 using net8API.DTOs.Stock;
+using net8API.Helpers;
 using net8API.Interfaces;
 using net8API.Models;
 
@@ -39,14 +40,44 @@ namespace net8API.Repository
             return stockModel;
         }
 
-        public async Task<List<Stock>> GetAllAsync()
+        public async Task<List<Stock>> GetAllAsync(QueryObject queryObject)
         {
-            return await _context.Stocks.Include(x=>x.Comments).ToListAsync();
+            var stocks= _context.Stocks.Include(x=>x.Comments).AsQueryable();
+            
+            if(!string.IsNullOrWhiteSpace(queryObject.Symbol))
+            {
+                stocks = stocks.Where(x=>x.Symbol.Contains(queryObject.Symbol));
+            }
+            if(!string.IsNullOrWhiteSpace(queryObject.CompanyName))
+            {
+                stocks = stocks.Where(x=>x.CompanyName.Contains(queryObject.CompanyName));
+            }
+            if(!string.IsNullOrWhiteSpace(queryObject.SortBy))
+            {
+                if(queryObject.SortBy.Equals("Symbol", StringComparison.OrdinalIgnoreCase))
+                {
+                    stocks = queryObject.isDescending ? stocks.OrderByDescending(x=>x.Symbol) : stocks.OrderBy(x=>x.Symbol);
+
+                }
+                if(queryObject.SortBy.Equals("CompanyName", StringComparison.OrdinalIgnoreCase))
+                {
+                    stocks = queryObject.isDescending ? stocks.OrderByDescending(x=>x.CompanyName) : stocks.OrderBy(x=>x.CompanyName);
+
+                }
+            }
+            var stocksNumber = (queryObject.PageNumber - 1) * queryObject.PageSize;
+
+            return await stocks.Skip(stocksNumber).Take(queryObject.PageSize).ToListAsync();
         }
 
         public async Task<Stock?> GetStockByidAsync(int id)
         {
             return await _context.Stocks.Include(x=>x.Comments).FirstOrDefaultAsync(i => i.Id == id);
+        }
+
+        public Task<bool> StockExistsAsync(int id)
+        {
+            return _context.Stocks.AnyAsync(x => x.Id == id);
         }
 
         public async Task<Stock> UpdateAsync(int id, UpdateStockRequestDTO stockDTO)

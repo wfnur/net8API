@@ -21,5 +21,24 @@ namespace net8API.Mapper
                 StockId = commentModel.StockId
             };
         }
+
+        public static Comment ToCommentFromCreate(this CreateCommentDTO commentDto,int stockId)
+        {
+            return new Comment
+            {
+                Title = commentDto.Title,
+                Content = commentDto.Content,
+                StockId = stockId
+            };
+        }
+
+        public static UpdateCommentDTO ToCommentUpdate(this UpdateCommentDTO commentDto)
+        {
+            return new UpdateCommentDTO
+            {
+                Title = commentDto.Title,
+                Content = commentDto.Content,
+            };
+        }
     }
 }
