@@ -142,3 +142,5 @@ E:\Learning\C#\net8API\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
 E:\Learning\C#\net8API\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
 E:\Learning\C#\net8API\obj\Debug\net8.0\staticwebassets.build.json.cache
 E:\Learning\C#\net8API\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+E:\Learning\C#\net8API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\Learning\C#\net8API\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
