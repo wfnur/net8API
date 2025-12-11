@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using net8API.Data;
@@ -23,6 +24,7 @@ namespace net8API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAll([FromQuery] QueryObject queryObject)
         {
             var stocks = await _stockRepo.GetAllAsync(queryObject);
@@ -32,6 +34,7 @@ namespace net8API.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [Authorize]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var stock = await _stockRepo.GetStockByidAsync(id);
@@ -44,6 +47,7 @@ namespace net8API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] CreateStockRequestDTO stockDTO)
         {
             if (!ModelState.IsValid)
@@ -61,6 +65,7 @@ namespace net8API.Controllers
 
         [HttpPut]
         [Route("{id:int}")]
+        [Authorize]
         public async Task<IActionResult> Update(
             [FromRoute] int id, 
             [FromBody] UpdateStockRequestDTO updateDTO
@@ -79,6 +84,7 @@ namespace net8API.Controllers
 
         [HttpDelete]
         [Route("{id:int}")]
+        [Authorize]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var stockModel = await _stockRepo.DeleteAsync(id);
