@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("net8API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1eb89c71f61b3711f1e9a589c1a504c7d06e26c8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7050e6549fed6285f8991af67662039c322a55e4")]
 [assembly: System.Reflection.AssemblyProductAttribute("net8API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("net8API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

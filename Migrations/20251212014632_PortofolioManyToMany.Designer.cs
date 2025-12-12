@@ -12,8 +12,8 @@ using net8API.Data;
 namespace net8API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251211003234_SeedRole")]
-    partial class SeedRole
+    [Migration("20251212014632_PortofolioManyToMany")]
+    partial class PortofolioManyToMany
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,13 +54,13 @@ namespace net8API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5e1fcb3e-0c09-492b-af45-370d701d18f3",
+                            Id = "751302ae-cd7e-4468-8c4f-8f350ff4915d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "51d0029f-0fe1-48af-a72d-c6607c02794c",
+                            Id = "86c640cc-01bb-44e3-a365-fbdc996605c0",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -270,6 +270,21 @@ namespace net8API.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("net8API.Models.Portofolio", b =>
+                {
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("StockId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AppUserId", "StockId");
+
+                    b.HasIndex("StockId");
+
+                    b.ToTable("Portofolios");
+                });
+
             modelBuilder.Entity("net8API.Models.Stock", b =>
                 {
                     b.Property<int>("Id")
@@ -364,9 +379,35 @@ namespace net8API.Migrations
                     b.Navigation("Stock");
                 });
 
+            modelBuilder.Entity("net8API.Models.Portofolio", b =>
+                {
+                    b.HasOne("net8API.Models.AppUser", "AppUser")
+                        .WithMany("Portofolios")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("net8API.Models.Stock", "Stock")
+                        .WithMany("Portofolios")
+                        .HasForeignKey("StockId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Stock");
+                });
+
+            modelBuilder.Entity("net8API.Models.AppUser", b =>
+                {
+                    b.Navigation("Portofolios");
+                });
+
             modelBuilder.Entity("net8API.Models.Stock", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Portofolios");
                 });
 #pragma warning restore 612, 618
         }
